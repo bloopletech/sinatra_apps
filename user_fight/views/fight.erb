@@ -1,0 +1,111 @@
+<table id="results">
+  <tr>
+    <td>
+      <div class="username"><%= h @user_1.username %></div>
+      <div class="name"><%= h @user_1.name %></div>
+    </td>
+    <td class="vertical-separator"></td>
+    <td>
+      <div class="username"><%= h @user_2.username %></div>
+      <div class="name"><%= h @user_2.name %></div>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      <div class="number"><%= h @user_1.followers_count %></div>
+      Number of followers</div>
+    </td>
+    <td class="vertical-separator"></td>
+    <td>
+      <div class="number"><%= h @user_2.followers_count %></div>
+      Number of followers</div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <div class="number"><%= h @user_1.following_count %></div>
+      Number of users following</div>
+    </td>
+    <td class="vertical-separator"></td>
+    <td>
+      <div class="number"><%= h @user_2.following_count %></div>
+      Number of users following</div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <div class="number"><%= h @user_1.repo_count %></div>
+      Number of repos</div>
+    </td>
+    <td class="vertical-separator"></td>
+    <td>
+      <div class="number"><%= h @user_2.repo_count %></div>
+      Number of repos</div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <div class="number"><%= h @user_1.gist_count %></div>
+      Number of gists</div>
+    </td>
+    <td class="vertical-separator"></td>
+    <td>
+      <div class="number"><%= h @user_2.gist_count %></div>
+      Number of gists</div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <div class="number"><%= h @user_1.repo_original_watchers_count %></div>
+      Watcher count for original repos</div>
+    </td>
+    <td class="vertical-separator"></td>
+    <td>
+      <div class="number"><%= h @user_2.repo_original_watchers_count %></div>
+      Watcher count for original repos</div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <div class="number"><%= h @user_1.repo_fork_watchers_count %></div>
+      Watcher count for forks</div>
+    </td>
+    <td class="vertical-separator"></td>
+    <td>
+      <div class="number"><%= h @user_2.repo_fork_watchers_count %></div>
+      Watcher count for forks</div>
+    </td>
+  </tr>
+
+  <tr class="scores">
+    <td>
+      <div class="number"><%= h @user_1.score %></div>
+      Analyzed Score</div>
+    </td>
+    <td class="vertical-separator"></td>
+    <td>
+      <div class="number"><%= h @user_2.score %></div>
+      Analyzed Score</div>
+    </td>
+  </tr>
+
+  <tr>
+    <td<% if @user_1 == @winner %> class="winner"<% end %>>
+      <% if @user_1 == @winner %>
+        <div class="winner">WINNER</div>
+      <% end %>
+    </td>
+    <td class="vertical-separator"></td>
+    <td<% if @user_2 == @winner %> class="winner"<% end %>>
+      <% if @user_2 == @winner %>
+        <div class="winner">WINNER</div>
+      <% end %>
+    </td>
+  </tr>
+</table>

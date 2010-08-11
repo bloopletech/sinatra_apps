@@ -1,0 +1,7 @@
+require File.dirname(__FILE__) + '/../lib/shared'
+
+namespace :db do
+  task :migrate do
+    ActiveRecord::Migrator.migrate(File.dirname(__FILE__) + "/migrations/")
+  end
+end

@@ -29,8 +29,13 @@ class User < ActiveRecord::Base
 
   def get_details
     if new_record? || !updated_at || (updated_at < 1.week.ago)
-      user_details = get_user_details(username)
-      repo_details = get_repo_details(username)
+      begin
+        user_details = get_user_details(username)
+        repo_details = get_repo_details(username)
+      rescue OpenURI::HTTPError => e
+        self.errors.add(:username, "does not exist in GitHub") #if it's a 404
+        return false
+      end
       
       self.gravatar_id = user_details['gravatar_id']
       self.name = user_details['name']

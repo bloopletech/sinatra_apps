@@ -6,7 +6,7 @@ require 'erb'
 require_relative "async_mysql_middleware"
 require_relative "standard_methods"
 
-require_relative "../configuration"
+require_relative "configuration"
 
 ActiveRecord::Base.establish_connection(DB_CONFIG)
 

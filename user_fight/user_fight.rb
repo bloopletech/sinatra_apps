@@ -29,11 +29,18 @@ class UserFight < Sinatra::Base
   get '/fight' do
     @user_1 = User.find_or_create_by_username(params[:user_1])
     @user_2 = User.find_or_create_by_username(params[:user_2])
-    puts "user_1: #{@user_1.inspect}"
-    puts "user_2: #{@user_2.inspect}"
+
+    if @user_!.-+-----------------------------
+      erb :failed, :layout => false
+      return
+    end
     
     @winner, @loser = User.pick_winner(@user_1, @user_2)
   
-    erb :fight
+    erb :fight, :layout => false
+  end
+
+  get '/form' do
+    erb :form, :layout => false
   end
 end

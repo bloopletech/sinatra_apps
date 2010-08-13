@@ -85,6 +85,18 @@
     </td>
   </tr>
 
+  <tr>
+    <td>
+      <div class="number"><%= h @user_1.repo_forks_count %></div>
+      Fork count for original repos</div>
+    </td>
+    <td class="vertical-separator"></td>
+    <td>
+      <div class="number"><%= h @user_2.repo_forks_count %></div>
+      Fork count for original repos</div>
+    </td>
+  </tr>
+
   <tr class="scores">
     <td>
       <div class="number"><%= h @user_1.score %></div>
@@ -111,3 +123,5 @@
     </td>
   </tr>
 </table>
+
+<p><a href="/" id="new_fight">New Fight!</a></p>

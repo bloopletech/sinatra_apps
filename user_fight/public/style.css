@@ -7,26 +7,28 @@ img { border: none; }
 p { margin-bottom: 1.4em; }
 form { text-align: center; }
 
+#replaceable, p.info, #results { margin-left: auto; margin-right: auto; }
+#replaceable { text-align: center; margin-top: 1.4em; }
 #wrapper { width: 980px; margin: 20px auto; }
 
-p.info { width: 400px; margin-top: 1.4em; margin-left: auto; margin-right: auto; }
-p.disclaimer { font-size: 80%; line-height: 1.4em; color: #a0a0a0; margin-top: 5em; }
+p.info { width: 400px; margin-top: 1.4em; }
+p.disclaimer { font-size: 80%; line-height: 1.4em; color: #808080; margin-top: 5em; margin-bottom: 0; }
 span.vs { font-style: italic; }
 
 #fight input { font: 90%/1.4em "Georgia", serif; }
 #fight input[type='text'] { width: 175px; border: 1px solid #009000; padding: 2px; color: #000000; }
 #fight input[type='submit'] { padding: 3px; }
 
-#results { margin: 1.4em auto 0 auto; border-collapse: collapse; }
+#results { margin-bottom: 2.5em; border-collapse: collapse; }
 #results td { padding: 10px; border-bottom: 1px solid #dddddd; }
 #results td:first-child { text-align: right; padding-right: 10px; }
 #results td.vertical-separator { border-right: 1px solid #dddddd; padding: 0; width: 0; }
-#results td.horizontal-separator { border-bottom: 1px solid #dddddd; }
 #results td:last-child { text-align: left; padding-left: 10px; }
 
 #results tr.scores td { background-color: #28d728; color: #f3f3da; }
+#results tr:last-child td { border-bottom: none; }
 
 div.username { font-size: 160%; line-height: 1.4em; }
 div.name { font-size: 90%; line-height: 1.4em; }
 div.number { font-size: 160%; line-height: 1.4em; }
-div.winner { font-size: 200%; }
+div.winner { font-size: 230%; }

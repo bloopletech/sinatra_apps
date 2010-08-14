@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   end
 
   def after_find
-    if !updated_at || (updated_at < 1.week.ago)
+    if updated_at < 1.week.ago
       get_details
       save!
     end

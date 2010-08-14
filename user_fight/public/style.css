@@ -28,7 +28,5 @@ span.vs { font-style: italic; }
 #results tr.scores td { background-color: #28d728; color: #f3f3da; }
 #results tr:last-child td { border-bottom: none; }
 
-div.username { font-size: 160%; line-height: 1.4em; }
-div.name { font-size: 90%; line-height: 1.4em; }
-div.number { font-size: 160%; line-height: 1.4em; }
+div.username, div.number { font-size: 160%; line-height: 1.4em; }
 div.winner { font-size: 230%; }

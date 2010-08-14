@@ -30,7 +30,7 @@ class UserFight < Sinatra::Base
     @user_1 = User.find_or_create_by_username(params[:user_1])
     @user_2 = User.find_or_create_by_username(params[:user_2])
 
-    if @user_!.-+-----------------------------
+    if !@user_1.errors.empty? || !@user_2.errors.empty?
       erb :failed, :layout => false
       return
     end

@@ -9,7 +9,6 @@ form { text-align: center; }
 
 #replaceable, p.info, #results { margin-left: auto; margin-right: auto; }
 #replaceable { text-align: center; margin-top: 1.4em; }
-#wrapper { width: 980px; margin: 20px auto; }
 
 p.info { width: 400px; margin-top: 1.4em; }
 p.disclaimer { font-size: 80%; line-height: 1.4em; color: #808080; margin-top: 5em; margin-bottom: 0; }

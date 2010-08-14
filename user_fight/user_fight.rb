@@ -30,17 +30,28 @@ class UserFight < Sinatra::Base
     @user_1 = User.find_or_create_by_username(params[:user_1])
     @user_2 = User.find_or_create_by_username(params[:user_2])
 
-    if !@user_1.errors.empty? || !@user_2.errors.empty?
-      erb :failed, :layout => false
-      return
-    end
+    return erb :failed, :layout => !xhr? if !@user_1.errors.empty? || !@user_2.errors.empty?
     
     @winner, @loser = User.pick_winner(@user_1, @user_2)
   
-    erb :fight, :layout => false
+    erb :fight, :layout => !xhr?
   end
 
-  get '/form' do
-    erb :form, :layout => false
+  helpers do
+    #Ripped from rails
+    def number(n)
+      parts = n.to_s.split('.')
+      parts[0].gsub!(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1,")
+      parts.join(".")
+    end
+
+    def request_url
+      request.url
+    end
+  end
+
+  private
+  def xhr?
+    request.xhr?
   end
 end

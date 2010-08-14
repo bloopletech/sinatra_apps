@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   set_table_name :user_fight_users
+  
+  after_find :check_details!
 
   validates_presence_of :username
 
@@ -14,13 +16,6 @@ class User < ActiveRecord::Base
     end
 
     return winner, loser
-  end
-
-  def after_find
-    if updated_at < 1.week.ago
-      get_details
-      save!
-    end
   end
 
   private
@@ -65,5 +60,12 @@ class User < ActiveRecord::Base
     (10 * repo_forks_count) + (0.025 * gist_count)).round
       
     true
+  end
+
+  def check_details!
+    if updated_at < 1.week.ago
+      get_details
+      save!
+    end
   end
 end

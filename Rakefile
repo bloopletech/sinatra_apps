@@ -1,7 +1,18 @@
 require_relative 'lib/shared'
 
+pidfile = File.dirname(__FILE__) + '/tmp/pids/rack.pid'
+
 desc "Starts the server"
 task :start do
+  #Process management - only needed in production
+  unless ENV['ENV'] == 'development'
+    Process.daemon(true)
+
+    File.open(pidfile, 'w') { |f| f.write("#{Process.pid}") }
+    at_exit { File.delete(pidfile) if File.exist?(pidfile) }
+  end
+
+  #For each app, run it in an instance of Rack::Server
   threads = []
 
   Sites.all.each do |site|
@@ -16,8 +27,15 @@ task :start do
   
     puts "#{site[:name]} running on #{site[:port]}" if $DEBUG
   end
-  
+
+  #Make sure we wait for all servers to die before exiting
   threads.each { |t| t.join }
+end
+
+task :stop do
+  system("kill `cat #{pidfile}`") if File.exists?(pidfile)
+  sleep(5)
+  system("kill -9 `cat #{pidfile}`") if File.exists?(pidfile)
 end
 
 desc "Generate nginx configuration"

@@ -1,6 +1,6 @@
 class AddUsers < ActiveRecord::Migration
   def self.up
-    create_table :user_fight_users do |t|
+    create_table :git_fight_users do |t|
       t.string :username
       t.string :gravatar_id
       t.string :name
@@ -19,6 +19,6 @@ class AddUsers < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :user_fight_users
+    drop_table :git_fight_users
   end
 end

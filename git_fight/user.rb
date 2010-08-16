@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  set_table_name :user_fight_users
+  set_table_name :git_fight_users
   
   after_find :check_details!
 
@@ -40,6 +40,7 @@ class User < ActiveRecord::Base
       return false
     end
 
+    self.username = user_details['login']
     self.gravatar_id = user_details['gravatar_id']
     self.name = user_details['name']
     self.repo_count = user_details['public_repo_count']

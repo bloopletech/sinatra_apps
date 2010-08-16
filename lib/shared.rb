@@ -2,7 +2,7 @@ require 'rubygems'
 require 'bundler'
 Bundler.require
 require 'erb'
-#require "#{File.dirname(__FILE__)}/active_record_mysql_gone_patch"
+require_relative "active_record_mysql_gone_patch"
 require_relative "async_mysql_middleware"
 require_relative "standard_methods"
 

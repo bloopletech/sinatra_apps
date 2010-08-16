@@ -21,20 +21,23 @@ end
 require 'open-uri'
 require_relative 'user'
 
-class UserFight < Sinatra::Base
+class GitFight < Sinatra::Base
   get '/' do
     erb :index
   end
   
   get '/fight' do
-    @user_1 = User.find_or_create_by_username(params[:user_1])
-    @user_2 = User.find_or_create_by_username(params[:user_2])
+    @user_1 = User.find(:first, :conditions => ['LOWER(username) = ?', params[:user_1]])
+    @user_1 = User.create(:username => params[:user_1]) unless @user_1
 
-    return erb :failed, :layout => !xhr? if !@user_1.errors.empty? || !@user_2.errors.empty?
+    @user_2 = User.find(:first, :conditions => ['LOWER(username) = ?', params[:user_2]])
+    @user_2 = User.create(:username => params[:user_2]) unless @user_2
+
+    return erb :failed, :layout => render_layout? if !@user_1.errors.empty? || !@user_2.errors.empty?
     
     @winner, @loser = User.pick_winner(@user_1, @user_2)
   
-    erb :fight, :layout => !xhr?
+    erb :fight, :layout => render_layout?
   end
 
   helpers do
@@ -51,7 +54,7 @@ class UserFight < Sinatra::Base
   end
 
   private
-  def xhr?
-    request.xhr?
+  def render_layout?
+    !request.xhr?
   end
 end

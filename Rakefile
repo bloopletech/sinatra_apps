@@ -38,6 +38,10 @@ task :stop do
   system("kill -9 `cat #{pidfile}`") if File.exists?(pidfile)
 end
 
+task :console do
+  system("irb -r ./lib/preload.rb")
+end
+
 desc "Generate nginx configuration"
 task :generate_nginx_config do
   f = File.open("/home/bloople/www/sinatra_apps/shared/lib/sinatra_apps.conf", "w")

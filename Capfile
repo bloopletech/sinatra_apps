@@ -20,11 +20,15 @@ role :db,  "bloople.net", :primary => true
 
 set :runner, user
 
+def run_in_current(task)
+  run "cd #{deploy_to}/current/; TERM=xterm-color rvm use 1.9.2-head; #{task}; exit;", :pty => false, :shell => 'bash -l'
+end
+
 namespace :deploy do
   desc "Restart the server"
   task :restart, :roles => :app do
-    #sudo "monit -c /etc/monit/monitrc restart rake"
-    #run "cd #{deploy_to}/current/;rake clear_caches; exit;", :pty => false
+    sudo "monit -c /etc/monit/monitrc restart rake"
+    #run_in_current("clear_caches")
   end
 
   desc "The spinner task is used by :cold_deploy to start the application up"
@@ -61,7 +65,7 @@ namespace :deploy do
   task :after_update_code, :roles => :app do
     run "ln -nfs #{deploy_to}/shared/lib/configuration.rb #{release_path}/lib/configuration.rb"
     #run "ln -nfs #{deploy_to}/shared/system/blog/assets #{release_path}/blog/public/assets"
-    run "rake generate_nginx_config"
+    run_in_current "rake generate_nginx_config"
   end
 
   task :after_setup, :roles => :app do

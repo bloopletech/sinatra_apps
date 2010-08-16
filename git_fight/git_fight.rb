@@ -32,6 +32,7 @@ class GitFight < Sinatra::Base
 
     @user_2 = User.find(:first, :conditions => ['LOWER(username) = ?', params[:user_2]])
     @user_2 = User.create(:username => params[:user_2]) unless @user_2
+    raise StandardError.new "sdgsds"
 
     return erb :failed, :layout => render_layout? if !@user_1.errors.empty? || !@user_2.errors.empty?
     
@@ -56,5 +57,14 @@ class GitFight < Sinatra::Base
   private
   def render_layout?
     !request.xhr?
+  end
+
+  public
+  configure :production do
+    error do
+      response.status = 500
+      content_type 'text/html'
+      erb :failed, :layout => render_layout?
+    end
   end
 end

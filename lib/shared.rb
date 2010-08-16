@@ -13,7 +13,7 @@ ActiveRecord::Base.establish_connection(DB_CONFIG)
 class Sites
   def self.all
     port = 8999
-    Dir.entries("#{File.dirname(__FILE__)}/..").reject { |d| d[0, 1] == '.' || !File.directory?(d) || d == 'lib' }.sort.map do |app_name|
+    Dir.entries("#{File.dirname(__FILE__)}/..").reject { |d| d[0, 1] == '.' || !File.directory?(d) || d == 'lib' || d == 'tmp' }.sort.map do |app_name|
       require_path = "#{File.dirname(__FILE__)}/../#{app_name}/#{app_name}"
 
       require require_path

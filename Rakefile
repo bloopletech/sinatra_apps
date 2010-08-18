@@ -1,3 +1,8 @@
+unless RUBY_VERSION >= '1.9'
+  puts "Re-run under ruby 1.9. Exiting."
+  exit
+end
+
 require_relative 'lib/shared'
 
 pidfile = File.dirname(__FILE__) + '/tmp/pids/rack.pid'

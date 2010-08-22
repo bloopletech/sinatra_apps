@@ -19,24 +19,30 @@ end
 =end
 
 require 'open-uri'
+
+module GitFight
+end
+
 require_relative 'user'
 
-class GitFight < Sinatra::Base
+class GitFight::GitFight < Sinatra::Base
   get '/' do
     erb :index
   end
   
   get '/fight' do
-    @user_1 = User.find(:first, :conditions => ['LOWER(username) = ?', params[:user_1]])
-    @user_1 = User.create(:username => params[:user_1]) unless @user_1
+    @user_1 = GitFight::User.find(:first, :conditions => ['LOWER(username) = ?', params[:user_1]])
+    @user_1 = GitFight::User.create(:username => params[:user_1]) unless @user_1
 
-    @user_2 = User.find(:first, :conditions => ['LOWER(username) = ?', params[:user_2]])
-    @user_2 = User.create(:username => params[:user_2]) unless @user_2
-    raise StandardError.new "sdgsds"
+    @user_2 = GitFight::User.find(:first, :conditions => ['LOWER(username) = ?', params[:user_2]])
+    @user_2 = GitFight::User.create(:username => params[:user_2]) unless @user_2
 
     return erb :failed, :layout => render_layout? if !@user_1.errors.empty? || !@user_2.errors.empty?
     
-    @winner, @loser = User.pick_winner(@user_1, @user_2)
+    @winner, @loser = GitFight::User.pick_winner(@user_1, @user_2)
+    
+    @user_1_winner_overall = @winner == @user_1
+    @user_2_winner_overall = @winner == @user_2
   
     erb :fight, :layout => render_layout?
   end

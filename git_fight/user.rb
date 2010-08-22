@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class GitFight::User < ActiveRecord::Base
   set_table_name :git_fight_users
   
   after_find :check_details!
@@ -7,15 +7,19 @@ class User < ActiveRecord::Base
 
   before_create :get_details
 
-  def self.pick_winner(user_1, user_2)
-    winner = user_1.score > user_2.score ? user_1 : user_2
-    loser = user_1.score < user_2.score ? user_1 : user_2
+  def self.pick_winner(user_1, user_2, method = :score)
+    winner = user_1.send(method) > user_2.send(method) ? user_1 : user_2
+    loser = user_1 == winner ? user_2 : user_1
     if winner == loser
       winner = user_1.user_created_at < user_2.user_created_at ? user_1.user_created_at : user_2.user_created_at
       loser = user_1.user_created_at > user_2.user_created_at ? user_1.user_created_at : user_2.user_created_at
     end
 
     return winner, loser
+  end
+
+  def self.is_user_winner?(user_in_question, other_user, method = :score)
+    pick_winner(user_in_question, other_user, method).first == user_in_question
   end
 
   private

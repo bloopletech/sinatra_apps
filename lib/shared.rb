@@ -18,8 +18,9 @@ class Sites
 
       require require_path
 
-      klass = Object.const_get(Object.constants.grep(/^#{app_name.gsub(/_/, '')}$/i)[0])
-      
+      mod = Object.const_get(Object.constants.grep(/^#{app_name.gsub(/_/, '')}$/i)[0])
+      klass = mod.const_get(mod.name)
+
       klass.instance_eval do
         set :app_file, require_path
 

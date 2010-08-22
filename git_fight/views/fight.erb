@@ -1,123 +1,51 @@
 <table id="results">
   <tr>
-    <td>
+    <td class="<%= @user_1_winner_overall ? 'winner' : 'loser' %>">
       <img src="http://www.gravatar.com/avatar/<%= @user_1.gravatar_id %>">
       <div class="username"><%= h @user_1.username %></div>
       <div class="name"><%= h @user_1.name %></div>
     </td>
     <td class="vertical-separator"></td>
-    <td>
+    <td class="<%= @user_2_winner_overall ? 'winner' : 'loser' %>">
       <img src="http://www.gravatar.com/avatar/<%= @user_2.gravatar_id %>">
       <div class="username"><%= h @user_2.username %></div>
       <div class="name"><%= h @user_2.name %></div>
     </td>
   </tr>
-  
-  <tr>
-    <td>
-      <div class="number"><%= number @user_1.followers_count %></div>
-      Number of followers</div>
-    </td>
-    <td class="vertical-separator"></td>
-    <td>
-      <div class="number"><%= number @user_2.followers_count %></div>
-      Number of followers</div>
-    </td>
-  </tr>
+
+  <% { :followers_count => 'Number of followers',
+       :following_count => 'Number of users following',
+       :repo_count => 'Number of repos',
+       :gist_count => 'Number of gists',
+       :repo_original_watchers_count => 'Watcher count for original repos',
+       :repo_fork_watchers_count => 'Watcher count for forks',
+       :repo_forks_count => 'Fork count for original repos',
+       :repo_forks_count => 'Fork count for original repos',
+       :score => 'Analyzed Score'
+     }.each_pair do |method, description|
+    %>
+    <tr class="<% method %>">
+      <td class="<%= GitFight::User.is_user_winner?(@user_1, @user_2, method) ? 'local-winner' : 'local-loser' %> <%= @user_1_winner_overall ? 'winner' : 'loser' %>">
+        <div class="number"><%= number @user_1.send(method) %></div>
+        <%= description %></div>
+      </td>
+      <td class="vertical-separator"></td>
+      <td class="<%= GitFight::User.is_user_winner?(@user_2, @user_1, method) ? 'local-winner' : 'local-loser' %> <%= @user_2_winner_overall ? 'winner' : 'loser' %>">
+        <div class="number"><%= number @user_2.send(method) %></div>
+        <%= description %></div>
+      </td>
+    </tr>
+  <% end %>
 
   <tr>
-    <td>
-      <div class="number"><%= number @user_1.following_count %></div>
-      Number of users following</div>
-    </td>
-    <td class="vertical-separator"></td>
-    <td>
-      <div class="number"><%= number @user_2.following_count %></div>
-      Number of users following</div>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <div class="number"><%= number @user_1.repo_count %></div>
-      Number of repos</div>
-    </td>
-    <td class="vertical-separator"></td>
-    <td>
-      <div class="number"><%= number @user_2.repo_count %></div>
-      Number of repos</div>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <div class="number"><%= number @user_1.gist_count %></div>
-      Number of gists</div>
-    </td>
-    <td class="vertical-separator"></td>
-    <td>
-      <div class="number"><%= number @user_2.gist_count %></div>
-      Number of gists</div>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <div class="number"><%= number @user_1.repo_original_watchers_count %></div>
-      Watcher count for original repos</div>
-    </td>
-    <td class="vertical-separator"></td>
-    <td>
-      <div class="number"><%= number @user_2.repo_original_watchers_count %></div>
-      Watcher count for original repos</div>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <div class="number"><%= number @user_1.repo_fork_watchers_count %></div>
-      Watcher count for forks</div>
-    </td>
-    <td class="vertical-separator"></td>
-    <td>
-      <div class="number"><%= number @user_2.repo_fork_watchers_count %></div>
-      Watcher count for forks</div>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <div class="number"><%= number @user_1.repo_forks_count %></div>
-      Fork count for original repos</div>
-    </td>
-    <td class="vertical-separator"></td>
-    <td>
-      <div class="number"><%= number @user_2.repo_forks_count %></div>
-      Fork count for original repos</div>
-    </td>
-  </tr>
-
-  <tr class="scores">
-    <td>
-      <div class="number"><%= number @user_1.score %></div>
-      Analyzed Score</div>
-    </td>
-    <td class="vertical-separator"></td>
-    <td>
-      <div class="number"><%= number @user_2.score %></div>
-      Analyzed Score</div>
-    </td>
-  </tr>
-
-  <tr>
-    <td<% if @user_1 == @winner %> class="winner"<% end %>>
-      <% if @user_1 == @winner %>
+    <td class="<%= @user_1_winner_overall ? 'winner' : 'loser' %>">
+      <% if @user_1_winner_overall %>
         <div class="winner">WINNER</div>
       <% end %>
     </td>
     <td class="vertical-separator"></td>
-    <td<% if @user_2 == @winner %> class="winner"<% end %>>
-      <% if @user_2 == @winner %>
+    <td class="<%= @user_2_winner_overall ? 'winner' : 'loser' %>">
+      <% if @user_2_winner_overall %>
         <div class="winner">WINNER</div>
       <% end %>
     </td>

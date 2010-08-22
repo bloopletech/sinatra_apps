@@ -26,6 +26,7 @@ GEM
     mongrel (1.2.0.pre2)
       daemons (~> 1.0.10)
       gem_plugin (~> 0.2.3)
+    nokogiri (1.4.3.1)
     rack (1.2.1)
     sinatra (1.0)
       rack (>= 1.0)
@@ -38,4 +39,5 @@ DEPENDENCIES
   activerecord (= 3.0.0.rc)
   mongrel (= 1.2.0.pre2)
   mysqlplus!
+  nokogiri (= 1.4.3.1)
   sinatra (= 1.0)

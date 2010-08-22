@@ -1,6 +1,8 @@
 #require 'json'
+module VideoEncoding
+end
 
-class VideoEncoding < Sinatra::Base
+class VideoEncoding::VideoEncoding < Sinatra::Base
   get '/' do
     erb :index
   end

@@ -24,6 +24,9 @@ span.vs { font-style: italic; }
 #results td.vertical-separator { border-right: 1px solid #dddddd; padding: 0; width: 0; }
 #results td:last-child { text-align: left; padding-left: 10px; }
 
+#results td.winner { background-color: #a8ffa8; }
+#results td.local-winner .number { font-weight: bold; }
+
 #results tr.scores td { background-color: #28d728; color: #f3f3da; }
 #results tr:last-child td { border-bottom: none; }
 

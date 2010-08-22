@@ -5,7 +5,7 @@ end
 
 require_relative 'lib/shared'
 
-pidfile = File.dirname(__FILE__) + '/tmp/pids/rack.pid'
+pidfile = 'tmp/pids/rack.pid'
 
 desc "Starts the server"
 task :start do

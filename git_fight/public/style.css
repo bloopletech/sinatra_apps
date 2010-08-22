@@ -21,7 +21,7 @@ span.vs { font-style: italic; }
 #results { margin-bottom: 2.5em; border-collapse: collapse; }
 #results td { padding: 10px; border-bottom: 1px solid #dddddd; vertical-align: top; }
 #results td:first-child { text-align: right; padding-right: 10px; }
-#results td.vertical-separator { border-right: 1px solid #dddddd; padding: 0; width: 0; }
+#results td.vertical-separator { padding: 0; width: 1px; background-color: #dddddd; }
 #results td:last-child { text-align: left; padding-left: 10px; }
 
 #results td.winner { background-color: #a8ffa8; }

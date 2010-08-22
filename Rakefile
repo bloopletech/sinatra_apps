@@ -69,7 +69,7 @@ server {
   server_name #{name}.bloople.net;
 
   location / {
-    root /home/bloople/www/sinatra_apps/current/#{name}/public/;
+    root /home/bloople/www/sinatra_apps/current/#{site[:name]}/public/;
     index /;
     if (!-f $request_filename) {
       proxy_pass http://127.0.0.1:#{site[:port]};

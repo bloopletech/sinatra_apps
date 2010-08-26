@@ -1,0 +1,3 @@
+[submodule "visage"]
+	path = visage
+	url = ./visage/

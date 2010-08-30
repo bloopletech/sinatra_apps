@@ -1,12 +1,12 @@
 <table id="results">
   <tr>
-    <td class="<%= @user_1_winner_overall ? 'winner' : 'loser' %>">
+    <td>
       <img src="http://www.gravatar.com/avatar/<%= @user_1.gravatar_id %>">
       <div class="username"><%= h @user_1.username %></div>
       <div class="name"><%= h @user_1.name %></div>
     </td>
     <td class="vertical-separator"></td>
-    <td class="<%= @user_2_winner_overall ? 'winner' : 'loser' %>">
+    <td>
       <img src="http://www.gravatar.com/avatar/<%= @user_2.gravatar_id %>">
       <div class="username"><%= h @user_2.username %></div>
       <div class="name"><%= h @user_2.name %></div>
@@ -25,7 +25,7 @@
      }.each_pair do |method, description|
     %>
     <tr class="<%= method %>">
-      <td class="<%= GitFight::User.is_user_winner?(@user_1, @user_2, method) ? 'local-winner' : 'local-loser' %> <%= @user_1_winner_overall ? 'winner' : 'loser' %>">
+      <td class="<%= GitFight::User.is_user_winner?(@user_1, @user_2, method) ? 'local-winner' : 'local-loser' %>">
         <div class="number"><%= number @user_1.send(method) %></div>
         <%= description %></div>
         <% if method == :score && @user_1_winner_overall %>
@@ -33,7 +33,7 @@
         <% end %>
       </td>
       <td class="vertical-separator"></td>
-      <td class="<%= GitFight::User.is_user_winner?(@user_2, @user_1, method) ? 'local-winner' : 'local-loser' %> <%= @user_2_winner_overall ? 'winner' : 'loser' %>">
+      <td class="<%= GitFight::User.is_user_winner?(@user_2, @user_1, method) ? 'local-winner' : 'local-loser' %>">
         <div class="number"><%= number @user_2.send(method) %></div>
         <%= description %></div>
         <% if method == :score && @user_2_winner_overall %>

@@ -13,43 +13,35 @@
     </td>
   </tr>
 
-  <% { :followers_count => 'Number of followers',
+  <% {  :score => 'Analyzed Score',
+       :followers_count => 'Number of followers',
        :following_count => 'Number of users following',
        :repo_count => 'Number of repos',
        :gist_count => 'Number of gists',
        :repo_original_watchers_count => 'Watcher count for original repos',
        :repo_fork_watchers_count => 'Watcher count for forks',
        :repo_forks_count => 'Fork count for original repos',
-       :repo_forks_count => 'Fork count for original repos',
-       :score => 'Analyzed Score'
+       :repo_forks_count => 'Fork count for original repos'
      }.each_pair do |method, description|
     %>
-    <tr class="<% method %>">
+    <tr class="<%= method %>">
       <td class="<%= GitFight::User.is_user_winner?(@user_1, @user_2, method) ? 'local-winner' : 'local-loser' %> <%= @user_1_winner_overall ? 'winner' : 'loser' %>">
         <div class="number"><%= number @user_1.send(method) %></div>
         <%= description %></div>
+        <% if method == :score && @user_1_winner_overall %>
+          <div class="winner">WINNER</div>
+        <% end %>
       </td>
       <td class="vertical-separator"></td>
       <td class="<%= GitFight::User.is_user_winner?(@user_2, @user_1, method) ? 'local-winner' : 'local-loser' %> <%= @user_2_winner_overall ? 'winner' : 'loser' %>">
         <div class="number"><%= number @user_2.send(method) %></div>
         <%= description %></div>
+        <% if method == :score && @user_2_winner_overall %>
+          <div class="winner">WINNER</div>
+        <% end %>
       </td>
     </tr>
   <% end %>
-
-  <tr>
-    <td class="<%= @user_1_winner_overall ? 'winner' : 'loser' %>">
-      <% if @user_1_winner_overall %>
-        <div class="winner">WINNER</div>
-      <% end %>
-    </td>
-    <td class="vertical-separator"></td>
-    <td class="<%= @user_2_winner_overall ? 'winner' : 'loser' %>">
-      <% if @user_2_winner_overall %>
-        <div class="winner">WINNER</div>
-      <% end %>
-    </td>
-  </tr>
 </table>
 
 <p><a href="/" id="new_fight">New Fight!</a></p>

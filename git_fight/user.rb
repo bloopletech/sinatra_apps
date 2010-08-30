@@ -42,6 +42,8 @@ class GitFight::User < ActiveRecord::Base
     rescue OpenURI::HTTPError => e
       self.errors.add(:username, "does not exist in GitHub") #if it's a 404
       return false
+    rescue Exception => e
+      return false
     end
 
     self.username = user_details['login']

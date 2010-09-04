@@ -47,6 +47,11 @@ class GitFight::GitFight < Sinatra::Base
     erb :fight, :layout => render_layout?
   end
 
+  get '/user/:id' do
+    @user = GitFight::User.find(params[:id].to_i)
+    erb :score #TODO: implement
+  end
+
   helpers do
     #Ripped from rails
     def number(n)

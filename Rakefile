@@ -2,6 +2,7 @@ unless RUBY_VERSION >= '1.9'
   puts "Re-run under ruby 1.9. Exiting."
   exit
 end
+$DEBUG=1
 
 require_relative 'lib/shared'
 
@@ -30,17 +31,15 @@ task :start do
     rs.instance_variable_set(:@app, rb)
     threads << Thread.new { rs.start }
   
-    puts "#{site[:name]} running on #{site[:port]}" if $DEBUG
+    puts "#{site[:name]} running on #{site[:port]}"# if $DEBUG
   end
 
   #Make sure we wait for all servers to die before exiting
-  threads.each { |t| t.join }
+  threads.each{ |t| t.join }
 end
 
 task :stop do
   system("kill `cat #{pidfile}`") if File.exists?(pidfile)
-  sleep(5)
-  system("kill -9 `cat #{pidfile}`") if File.exists?(pidfile)
 end
 
 task :console do

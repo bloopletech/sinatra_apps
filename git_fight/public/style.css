@@ -25,6 +25,7 @@ span.vs { font-style: italic; }
 #results td:last-child { text-align: left; padding-left: 10px; }
 
 #results td.local-winner .number { font-weight: bold; }
+#results tr.score td.local-winner .number { font-weight: normal; }
 
 #results tr.score td:first-child, #results tr.score td:last-child { background-color: #28d728; color: #f3f3da; }
 #results tr:last-child td { border-bottom: none; }

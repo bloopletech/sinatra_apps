@@ -1,3 +1,4 @@
+require_relative 'load_extensions'
 require 'rubygems'
 require 'bundler'
 Bundler.require
@@ -13,8 +14,8 @@ ActiveRecord::Base.establish_connection(DB_CONFIG)
 class Sites
   def self.all
     port = 8999
-    Dir.entries("#{File.dirname(__FILE__)}/..").reject { |d| d[0, 1] == '.' || !File.directory?(d) || d == 'lib' || d == 'tmp' }.sort.map do |app_name|
-      require_path = "#{File.dirname(__FILE__)}/../#{app_name}/#{app_name}"
+    Dir.entries(__DIRNAME__ / '..').reject { |d| d[0, 1] == '.' || !File.directory?(d) || d == 'lib' || d == 'tmp' }.sort.map do |app_name|
+      require_path = __DIRNAME__ / "../#{app_name}/#{app_name}"
 
       require require_path
 

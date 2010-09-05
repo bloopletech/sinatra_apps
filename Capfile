@@ -7,6 +7,7 @@ set :user, "bloople"
 set :port, 9979
 set :scm, :git
 set :repository, "git@github.com:bloopletech/sinatra_apps.git"
+set :git_enable_submodules, 1
 
 set :deploy_to, "/home/bloople/www/#{application}"
 

@@ -22,7 +22,7 @@ role :db,  "bloople.net", :primary => true
 set :runner, user
 
 def run_in_current(task)
-  run "cd #{deploy_to}/current/; TERM=xterm-color rvm use 1.9.2-head; #{task}; exit;", :pty => false, :shell => 'bash -l'
+  run "cd #{release_path}; TERM=xterm-color rvm use 1.9.2; #{task}; exit;", :pty => false, :shell => 'bash -l'
 end
 
 namespace :deploy do

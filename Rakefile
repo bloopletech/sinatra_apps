@@ -2,7 +2,6 @@ unless RUBY_VERSION >= '1.9'
   puts "Re-run under ruby 1.9. Exiting."
   exit
 end
-$DEBUG=1
 
 require_relative 'lib/shared'
 
@@ -23,7 +22,7 @@ task :start do
 
   Sites.all.each do |site|
     rb = Rack::Builder.app do
-      use AsyncMysqlMiddleware
+      #use AsyncMysqlMiddleware
       run site[:class]
     end
   

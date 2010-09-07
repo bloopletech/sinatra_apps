@@ -21,6 +21,17 @@ end
 require 'open-uri'
 
 module GitFight
+  STATS_ATTRS = {
+   :score => 'Analyzed Score',
+   :followers_count => 'Number of followers',
+   :following_count => 'Number of users following',
+   :repo_count => 'Number of repos',
+   :gist_count => 'Number of gists',
+   :repo_original_watchers_count => 'Watcher count for original repos',
+   :repo_fork_watchers_count => 'Watcher count for forks',
+   :repo_forks_count => 'Fork count for original repos',
+   :repo_forks_count => 'Fork count for original repos'
+  }
 end
 
 require_relative 'user'
@@ -47,9 +58,13 @@ class GitFight::GitFight < Sinatra::Base
     erb :fight, :layout => render_layout?
   end
 
-  get '/user/:id' do
-    @user = GitFight::User.find(params[:id].to_i)
-    erb :score #TODO: implement
+  get '/user/:user' do
+    @user = GitFight::User.find(:first, :conditions => ['LOWER(username) = ?', params[:user]])
+
+    out = {}
+    (GitFight::STATS_ATTRS.keys + [:username]).each { |attr| out[attr] = @user.send(attr) }
+
+    out.to_json
   end
 
   helpers do

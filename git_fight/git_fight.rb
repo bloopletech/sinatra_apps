@@ -42,11 +42,8 @@ class GitFight::GitFight < Sinatra::Base
   end
   
   get '/fight' do
-    @user_1 = GitFight::User.find(:first, :conditions => ['LOWER(username) = ?', params[:user_1]])
-    @user_1 = GitFight::User.create(:username => params[:user_1]) unless @user_1
-
-    @user_2 = GitFight::User.find(:first, :conditions => ['LOWER(username) = ?', params[:user_2]])
-    @user_2 = GitFight::User.create(:username => params[:user_2]) unless @user_2
+    @user_1 = get_user(params[:user_1])
+    @user_2 = get_user(params[:user_2])
 
     return erb :failed, :layout => render_layout? if !@user_1.errors.empty? || !@user_2.errors.empty?
     
@@ -59,11 +56,12 @@ class GitFight::GitFight < Sinatra::Base
   end
 
   get '/user/:user' do
-    @user = GitFight::User.find(:first, :conditions => ['LOWER(username) = ?', params[:user]])
+    @user = get_user(params[:user])
 
     out = {}
     (GitFight::STATS_ATTRS.keys + [:username]).each { |attr| out[attr] = @user.send(attr) }
 
+    response.headers["Content-type"] = "application/json"
     out.to_json
   end
 
@@ -84,6 +82,13 @@ class GitFight::GitFight < Sinatra::Base
   def render_layout?
     !request.xhr?
   end
+
+  def get_user(username)
+    user = GitFight::User.find(:first, :conditions => ['LOWER(username) = ?', username])
+    user = GitFight::User.create(:username => username) unless user
+    user
+  end
+  
 
   public
   configure :production do

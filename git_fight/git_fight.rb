@@ -59,7 +59,10 @@ class GitFight::GitFight < Sinatra::Base
     @user = get_user(params[:user])
 
     out = {}
-    (GitFight::STATS_ATTRS.keys + [:username]).each { |attr| out[attr] = @user.send(attr) }
+    (GitFight::STATS_ATTRS.keys + [:username]).each do |attr|
+      val = @user.send(attr)
+      out[attr] = params[:commas] == 'true' ? number(val) : val
+    end
 
     response.headers["Content-type"] = "application/json"
     (callback = params[:jsonp] || params[:callback]) ? "#{callback}(#{out.to_json});" : out.to_json

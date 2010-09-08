@@ -38,7 +38,7 @@ task :start do
 end
 
 task :stop do
-  system("kill `cat #{pidfile}`") if File.exists?(pidfile)
+  system("kill -9 `cat #{pidfile}`") if File.exists?(pidfile)
 end
 
 task :console do

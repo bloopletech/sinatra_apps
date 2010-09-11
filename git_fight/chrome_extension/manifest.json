@@ -1,0 +1,13 @@
+{
+  "name": "GitFight GitHub integration",
+  "version": "1.0",
+  "description": "Adds the GitFight score to GitHub profile pages",
+  "permissions": ["http://github.com/*", "https://github.com/*"],
+  "content_scripts": [
+   {
+    "matches": ["http://github.com/*", "https://github.com/*"],
+    "js": ["jquery.js", "injection.js"],
+    "run_at": "document_end"
+   }
+  ]
+}

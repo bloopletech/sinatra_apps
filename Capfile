@@ -4,7 +4,7 @@ default_run_options[:pty] = true
 
 set :application, "sinatra_apps"
 set :user, "bloople"
-set :port, 9979
+#set :port, 9979
 set :scm, :git
 set :repository, "git@github.com:bloopletech/sinatra_apps.git"
 set :git_enable_submodules, 1
@@ -15,9 +15,9 @@ set :deploy_via, :remote_cache
 
 set :keep_releases, 2
 
-role :app, "bloople.net"
-role :web, "bloople.net"
-role :db,  "bloople.net", :primary => true
+role :app, "173.230.157.72"
+role :web, "173.230.157.72"
+role :db,  "173.230.157.72", :primary => true
 
 set :runner, user
 

@@ -22,7 +22,6 @@ task :start do
 
   Sites.all.each do |site|
     rb = Rack::Builder.app do
-      #use AsyncMysqlMiddleware
       run site[:class]
     end
   

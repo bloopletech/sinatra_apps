@@ -4,8 +4,6 @@ require 'bundler'
 Bundler.require
 require 'erb'
 require 'yajl/json_gem'
-require_relative "active_record_mysql_gone_patch"
-#require_relative "async_mysql_middleware"
 require_relative "standard_methods"
 
 require_relative "configuration"

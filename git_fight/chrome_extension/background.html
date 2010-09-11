@@ -1,0 +1,11 @@
+<html>
+  <head>
+    <script>
+    chrome.tabs.onCreated.addListener(function(tab)
+    {
+      alert(' url: ' + tab.url);
+      chrome.tabs.executeScript(tab.id, { file: "injection.js" });
+    });
+    </script>
+  </head>
+</html>

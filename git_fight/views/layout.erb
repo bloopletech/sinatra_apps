@@ -7,21 +7,9 @@
     <script type="text/javascript" src="/app.js"></script>
   </head>
   <body>
-    <h1>Git Fight!</h1>
-
-    <p class="info">Enter two GitHub usernames into the boxes below, and my algorithm will work out who is the better contributor by analyzing their GitHub stats.</p>
-
-    <form id="fight" action="/fight" method="get">
-      <input type="text" name="user_1" id="user_1" value="<%= h @user_1 ? @user_1.username : '' %>"> <span class="vs">vs.</span>
-      <input type="text" name="user_2" value="<%= h @user_2 ? @user_2.username : '' %>">
-      <input type="submit" value="Fight!">
-    </form>
+    <%= yield %>
     
-    <div id="replaceable">
-      <%= yield %>
-    </div>
-    
-    <p class="info disclaimer">Git Fight! is not associated with GitHub. These figures are based in fact, but they are only a weak proxy for a user's actual contribution levels. User data is cached for a week at a time. Copyright &copy; 2010 <a href=
+    <p class="info disclaimer">Git Fight! is not associated with GitHub. These figures are only a proxy for a user's actual contribution levels. User data is cached for a week at a time. Copyright &copy; 2010 <a href=
 "http://blog.bloople.net/">Brenton Fletcher</a>. <a href="http://github.com/bloopletech/sinatra_apps/tree/master/git_fight/">Source on GitHub</a>.</p>
   </body>
 </html>

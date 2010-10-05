@@ -68,6 +68,12 @@ class GitFight::GitFight < Sinatra::Base
     (callback = params[:jsonp] || params[:callback]) ? "#{callback}(#{out.to_json});" : out.to_json
   end
 
+  get '/about' do
+    erb :about, :layout => false
+  end
+
+  mime_type 'crx', 'application/x-chrome-extension'
+
   helpers do
     #Ripped from rails
     def number(n)

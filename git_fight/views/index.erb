@@ -1,0 +1,16 @@
+<h1>Git Fight!</h1>
+
+<p class="info">Enter two GitHub usernames into the boxes below, and my algorithm will work out who is the better contributor by analyzing their GitHub stats.</p>
+
+<form id="fight" action="/fight" method="get">
+  <input type="text" name="user_1" id="user_1" value="<%= h @user_1 ? @user_1.username : '' %>"> <span class="vs">vs.</span>
+  <input type="text" name="user_2" value="<%= h @user_2 ? @user_2.username : '' %>">
+  <input type="submit" value="Fight!">
+</form>
+
+<div id="replaceable">
+</div>
+
+<ul>
+  <li><a href="/extensions/chrome_extension.crx">Get the Google Chrome extension</a> - see user's Git FIght! scores on every GitHub user profile page.</li>
+</ul>

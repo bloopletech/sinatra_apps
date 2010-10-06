@@ -69,7 +69,7 @@ class GitFight::GitFight < Sinatra::Base
   end
 
   get '/about' do
-    erb :about, :layout => false
+    erb :about
   end
 
   mime_type 'crx', 'application/x-chrome-extension'

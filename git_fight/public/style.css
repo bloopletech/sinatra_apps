@@ -1,23 +1,22 @@
 * { margin: 0; padding: 0; }
-body { padding: 15px; background-color: #f5f5dc; color: #009000; }
+body { padding: 15px; background-color: #f5f5dc; color: #009000; width: 600px; }
 body, input, select, textarea, table, tr, td, h1, h2, h3, h4, h5, h6 { font: 100%/1.4em "Georgia", serif; }
 h1 { font-size: 200%; font-weight: bold; font-style: italic; text-align: center; margin: 0 0 0 0; }
 h2 { font-size: 140%; font-weight: bold; margin: 1.5em 0 0.0em 0; }
 img { border: none; }
 /*li { margin-left: 30px; }*/
 p, ul { margin-bottom: 1.4em; }
-ul { margin-left: 5em; }
+ul { margin-left: 3em; }
 form { text-align: center; }
 
-#content-wrapper { width: 600px; }
-
-#content-wrapper, #replaceable, p.info, #results { margin-left: auto; margin-right: auto; }
+body, #replaceable, p.info, #results, #informative-links { margin-left: auto; margin-right: auto; }
 #replaceable { text-align: center; margin-top: 1.4em; }
 
 h1 + p { margin-top: 1.4em; }
-p.info { width: 400px; }
+p.info, #informative-links { width: 400px; }
 p.disclaimer { font-size: 80%; line-height: 1.4em; color: #808080; margin-top: 5em; margin-bottom: 0; }
 span.vs { font-style: italic; }
+
 
 #fight input { font: 90%/1.4em "Georgia", serif; }
 #fight input[type='text'] { width: 175px; border: 1px solid #009000; padding: 2px; color: #000000; }

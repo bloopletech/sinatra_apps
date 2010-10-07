@@ -1,0 +1,48 @@
+<div id="content-wrapper">
+  <h1>GitFight! API</h1>
+
+  <p>You can get the data for a GitHub user, including their GitFight! score, by requesting:</p>
+  <blockquote>
+    http://gitfight.bloople.net/user/&ltusername&gt;
+  </blockquote>
+  <p>You will get a response like this:</p>
+  <blockquote>
+    <pre>
+{
+  "score": 19380,
+  "followers_count": 1538,
+  "following_count": 191,
+  "repo_count": 97,
+  "gist_count": 272,
+  "repo_original_watchers_count": 9013,
+  "repo_fork_watchers_count": 109,
+  "repo_forks_count": 986,
+  "username": "defunkt"
+}
+    </pre>
+  </blockquote>
+  <p>You can optionally add any of these parameters to the query string:</p>
+  <ul>
+    <li><em>key</em>: <code>commas</code>, <em>value</em>: <code>true</code>: returns human-formatted strings instead of integers.</li>
+    <li><em>key</em>: <code>callback</code> or <code>jsonp</code>, <em>value</em>: <code>a function name</code>: calls the named function with the returned data as the only argument.</li>
+  </ul>
+  <p>Here's an example of a response for the URL <code>http://gitfight.bloople.net/user/defunkt?commas=true&amp;callback=got_gitfight</code>:</p>
+  <blockquote>
+    <pre>
+got_gitfight(
+{
+  score: '19,392',
+  followers_count: '1,538',
+  following_count: '191',
+  repo_count: '97',
+  gist_count: '272',
+  repo_original_watchers_count: '9,015',
+  repo_fork_watchers_count: '109',
+  repo_forks_count: '987',
+  username: 'defunkt'
+}
+);
+    </pre>
+  </blockquote>
+  <p>There are currently no limits on using the GitFight! API.</p>
+</div>

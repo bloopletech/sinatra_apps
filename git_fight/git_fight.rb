@@ -38,6 +38,7 @@ require_relative 'user'
 
 class GitFight::GitFight < Sinatra::Base
   get '/' do
+    @inside_content = ''
     erb :index
   end
   
@@ -45,14 +46,14 @@ class GitFight::GitFight < Sinatra::Base
     @user_1 = get_user(params[:user_1])
     @user_2 = get_user(params[:user_2])
 
-    return erb :failed, :layout => render_layout? if !@user_1.errors.empty? || !@user_2.errors.empty?
-    
+    return render_with_possible_xhr :failed if !@user_1.errors.empty? || !@user_2.errors.empty?
+
     @winner, @loser = GitFight::User.pick_winner(@user_1, @user_2)
     
     @user_1_winner_overall = @winner == @user_1
     @user_2_winner_overall = @winner == @user_2
-  
-    erb :fight, :layout => render_layout?
+
+    return render_with_possible_xhr :fight
   end
 
   get '/user/:user' do
@@ -70,6 +71,10 @@ class GitFight::GitFight < Sinatra::Base
 
   get '/about' do
     erb :about
+  end
+
+  get '/api' do
+    erb :api
   end
 
   mime_type 'crx', 'application/x-chrome-extension'
@@ -97,7 +102,11 @@ class GitFight::GitFight < Sinatra::Base
     user = GitFight::User.create(:username => username) unless user
     user
   end
-  
+
+  def render_with_possible_xhr(view_name)
+    @inside_content = erb view_name, :layout => false
+    render_layout? ? erb(:index) : @inside_content
+  end
 
   public
   configure :production do

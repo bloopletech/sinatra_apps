@@ -14,6 +14,7 @@ body, #replaceable, p.info, #results, #informative-links { margin-left: auto; ma
 
 h1 + p { margin-top: 1.4em; }
 p.info, #informative-links { width: 400px; }
+#informative-links { margin-top: 2em; }
 p.disclaimer { font-size: 80%; line-height: 1.4em; color: #808080; margin-top: 5em; margin-bottom: 0; }
 span.vs { font-style: italic; }
 

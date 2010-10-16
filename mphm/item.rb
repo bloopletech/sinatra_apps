@@ -1,6 +1,14 @@
+class Array
+  def random
+    self[rand(length)]
+  end
+end
+
+
 class Mphm::Item < ActiveRecord::Base
   set_table_name :mphm_items
 
+  attr_accessor :related_subjects
 
   API_KEY = 'bc76e88f9fab014'
 =begin
@@ -14,31 +22,63 @@ class Mphm::Item < ActiveRecord::Base
 =end
   #it is the powerhouse id
   def self.from_api(id)
-    data = Yajl::Parser.parse(open("http://api.powerhousemuseum.com/api/v1/item/#{id}/json/?api_key=#{API_KEY}").read)
+    data = get("item/#{id}/json/?api_key=#{API_KEY}&limit=#{NUM_ITEMS}")
     #check status and raise error
 
     item_from_hash(data["item"])
   end
 
+  NUM_ITEMS = 6
+
+  CACHE = {}
+  def self.get(url)
+    if CACHE.key? url
+      puts "Cache hit for #{url}"
+      CACHE[url]
+    else
+      puts "Cache miss for #{url}"
+      CACHE[url] = Yajl::Parser.parse(open("http://api.powerhousemuseum.com/api/v1/#{url}").read)
+    end
+  end
+
   def related_items
-    data = Yajl::Parser.parse(open("http://api.powerhousemuseum.com/api/v1/item-name/json/?api_key=#{API_KEY}&name=#{CGI.escape(mphm_name)}").read)
-    
-    
+
+
+    items = []
+
+    #related subjects
+    #pick first for each related up to 5
+    related_subjects[0, NUM_ITEMS - 1].each do |subject|
+      data = self.class.get("subject/json/?api_key=#{API_KEY}&name=#{CGI.escape subject}")
+      _items = self.class.get("subject/#{data['subjects'][0]['id']}/items/json/?api_key=#{API_KEY}&limit=10")['items']
+      interim = _items.first
+      interim = _items.last if interim['id'] == mphm_id
+
+      items << self.class.item_from_hash(interim)
+    end
+
+    #pick random related
+    data = self.class.get("item-name/json/?api_key=#{API_KEY}&name=#{CGI.escape(mphm_name)}")
     id = data["item_names"][0]["id"]
-
-    data = Yajl::Parser.parse(open("http://api.powerhousemuseum.com/api/v1/item-name/#{id}/items/json/?api_key=#{API_KEY}").read)
-
-    data["items"].map { |item_hash| self.class.item_from_hash(item_hash) }[0, 10]
+    data = self.class.get("item-name/#{id}/items/json/?api_key=#{API_KEY}")
+    items << self.class.item_from_hash(data["items"].random)
+    
+    items
   end
 
   #Should be private
   def self.item_from_hash(hash)
-    data = { :title => hash['title'], :short_description => hash['summary'], :mphm_id => hash['id'], :thumbnail_url => hash["multimedia_uri"] }
+
+    #get("a}) hash["multimedia_uri"]
+
+    data = { :title => hash['title'], :short_description => hash['summary'], :mphm_id => hash['id'], :thumbnail_url => hash["multimedia_uri"], :url => "http://www.powerhousemuseum.com/collection/database/?irn=#{hash['id']}" }
     
     if hash['names']
       data.merge!(:mphm_name => hash['names'][0], :description => hash['description'])
     end
 
-    Mphm::Item.new(data)
+    item = Mphm::Item.new(data)
+    item.related_subjects = hash['subjects'] if hash.key? 'subjects'
+    item
   end
 end

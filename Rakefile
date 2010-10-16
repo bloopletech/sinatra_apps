@@ -20,7 +20,7 @@ task :start do
   #For each app, run it in an instance of Rack::Server
   threads = []
 
-  Sites.all.select { |s| s[:name] == 'mphm' }.each do |site|
+  Sites.all.each do |site|
     rb = Rack::Builder.app do
       run site[:class]
     end

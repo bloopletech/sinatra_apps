@@ -37,6 +37,7 @@ class Mphm::Item < ActiveRecord::Base
       CACHE[url]
     else
       puts "Cache miss for #{url}"
+      puts "going to http://api.powerhousemuseum.com/api/v1/#{url}"
       CACHE[url] = Yajl::Parser.parse(open("http://api.powerhousemuseum.com/api/v1/#{url}").read)
     end
   end
@@ -68,10 +69,10 @@ class Mphm::Item < ActiveRecord::Base
 
   #Should be private
   def self.item_from_hash(hash)
+  puts "asdgsdrgsdg: #{hash["multimedia_uri"].inspect}"
+    thumbnail_url = get(hash["multimedia_uri"].gsub("/api/v1/", ""))['multimedia'][0]['images']['thumbnail']['url']
 
-    #get("a}) hash["multimedia_uri"]
-
-    data = { :title => hash['title'], :short_description => hash['summary'], :mphm_id => hash['id'], :thumbnail_url => hash["multimedia_uri"], :url => "http://www.powerhousemuseum.com/collection/database/?irn=#{hash['id']}" }
+    data = { :title => hash['title'], :short_description => hash['summary'], :mphm_id => hash['id'], :thumbnail_url => thumbnail_url, :url => "http://www.powerhousemuseum.com/collection/database/?irn=#{hash['id']}" }
     
     if hash['names']
       data.merge!(:mphm_name => hash['names'][0], :description => hash['description'])

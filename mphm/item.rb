@@ -69,8 +69,11 @@ class Mphm::Item < ActiveRecord::Base
 
   #Should be private
   def self.item_from_hash(hash)
-  puts "asdgsdrgsdg: #{hash["multimedia_uri"].inspect}"
-    thumbnail_url = get(hash["multimedia_uri"].gsub("/api/v1/", ""))['multimedia'][0]['images']['thumbnail']['url']
+    thumbnail_url = begin
+      get(hash["multimedia_uri"].gsub("/api/v1/", ""))['multimedia'][0]['images']['thumbnail']['url']
+    rescue
+      nil
+    end
 
     data = { :title => hash['title'], :short_description => hash['summary'], :mphm_id => hash['id'], :thumbnail_url => thumbnail_url, :url => "http://www.powerhousemuseum.com/collection/database/?irn=#{hash['id']}" }
     

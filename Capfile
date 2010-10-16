@@ -65,7 +65,7 @@ namespace :deploy do
 
   task :after_update_code, :roles => :app do
     run "ln -nfs #{deploy_to}/shared/lib/configuration.rb #{release_path}/lib/configuration.rb"
-    run "ln -nfs /home/mphm/site/ #{release_path}/mphm/public"
+    #run "ln -nfs /home/mphm/site/ #{release_path}/mphm/public"
     #run "ln -nfs #{deploy_to}/shared/system/blog/assets #{release_path}/blog/public/assets"
     run_in_current "rake generate_nginx_config"
   end

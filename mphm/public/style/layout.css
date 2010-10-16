@@ -1,0 +1,90 @@
+body {
+  color: #FFF;
+}
+body a {
+  color: #FFF;
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen 
+and (max-width : 320px) {
+/* Styles */
+}
+
+/* iPads (portrait) ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) {
+/* Styles */
+}
+
+/* Desktops and laptops ----------- */
+@media only screen 
+and (min-width : 1024px) {
+/* Styles */
+#item {
+  width: 884px;
+  background-color: rgba(0,0,0,0.8);
+}
+}
+
+#item {
+  position: relative;
+  padding: 24px 38px;
+}
+
+#close a {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: block;
+  background: url(../images/icon_close.png) no-repeat;
+  text-indent: -1000em;
+  width: 27px;
+  height: 27px;
+}
+
+#item figure {
+  width: 420px;
+  margin: 0;
+}
+#item img {
+  border: 1px solid #FFF;
+}
+#description {
+  position: absolute;
+  width: 400px;
+  right: 50px;
+  top: 64px;
+  height: 780px;
+  overflow: auto;
+}
+#image-thumbs li, #video-thumbs li {
+  display: inline;
+}
+#explore {
+  position: relative;
+  width: 450px;
+}
+#tags, #elsewhere {
+  position: absolute;
+  top: 0;
+  width: 120px;
+  min-height: 100px;
+}
+#tags h3, #elsewhere h3 {
+  margin-top: 0;
+}
+#tags {
+  left: 140px;
+}
+#elsewhere {
+ left: 280px;
+}
+
+.wikipedia {
+  background: url(../images/wikipedia.png) no-repeat;
+  min-height: 23px;
+  padding-left: 30px;
+}

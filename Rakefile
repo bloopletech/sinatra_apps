@@ -1,11 +1,11 @@
-unless RUBY_VERSION >= '1.9'
-  puts "Re-run under ruby 1.9. Exiting."
+unless RUBY_VERSION >= '1.9.2'
+  puts "Re-run under ruby 1.9.2. Exiting."
   exit
 end
 
 require_relative 'lib/shared'
 
-pidfile = 'tmp/pids/rack.pid'
+pidfile = 'tmp/pids/server.pid'
 
 desc "Starts the server"
 task :start do

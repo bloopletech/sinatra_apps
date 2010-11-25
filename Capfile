@@ -28,7 +28,7 @@ end
 namespace :deploy do
   desc "Restart the server"
   task :restart, :roles => :app do
-    sudo "monit -c /etc/monit/monitrc restart rake"
+    sudo "monit restart rake"
     #run_in_current("clear_caches")
   end
 

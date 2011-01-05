@@ -1,0 +1,147 @@
+require_relative 'lia'
+require 'open-uri'
+=begin
+class String
+  def lsl(other_string)
+    i = 0
+    i += 1 while i < self.length && i < other_string.length && self[i] == other_string[i]
+    i
+  end
+end
+
+
+
+madmans.each do |madman|
+  lsl_title = titles.max_by { |title| madman.lsl(title) }
+  lsl_title_sl = madman.lsl(lsl_title)
+  
+  puts "madman: #{madman}, lsl_title: #{lsl_title}, lsl_title_sl: #{lsl_title_sl}"
+
+  
+end
+=end
+
+namespace :lia do
+  namespace :db do
+    desc "Migrate database"
+    task :migrate do
+      ActiveRecord::Migrator.migrate(File.dirname(__FILE__) + "/migrations/")
+    end
+  end
+  
+  desc "Load titles"
+  task :load do
+    unless ENV['SKIP_FILES'] == 'true'
+      #Get the files we'll be using
+
+      Dir.glob(__DIRNAME__ / "dls/*").each { |f| File.delete(f) }
+
+      #AniDB
+      File.open(__DIRNAME__ / "dls/anidb.xml.gz", "w") { |f| f << open("http://anidb.net/api/animetitles.xml.gz").read }
+      system("cd #{File.escape_name(__DIRNAME__ / 'dls')} && gzip -d anidb.xml.gz")
+      
+      #Madman
+      url = "?method=browse&webChannelId=1"
+      i = 1
+      begin
+        puts url
+        text = open("http://www.madman.com.au/actions/series.do#{url}").read
+        File.open(__DIRNAME__ / "dls/madman_#{i}.html", 'w') { |f| f << text }
+        
+        doc = Nokogiri::HTML::Document.parse(text)
+        arr = doc.css("div.pageNumbers a:last-child:not(.disabled)")
+  
+        unless arr.empty?
+          url = arr.first['href']
+        else
+          break
+        end
+  
+        i += 1
+        sleep 5
+      end while true
+
+      #Siren
+      File.open(__DIRNAME__ / "dls/siren.html", "w") { |f| f << open("http://www.sirenvisual.com.au/Catalogue/Genre/anime.php").read }
+    end
+
+    #Delete the existing titles
+    Lia::Title.delete_all
+
+
+    #Load the titles from AniDB
+    all_titles = []
+
+    doc = Nokogiri::XML::Document.parse(File.read(__DIRNAME__ / 'dls/anidb.xml'))
+    
+    doc.css("animetitles > anime").each do |anime|
+      title_japanese_main = title_romaji_main = title_english_main = ""
+      #aid = anime['aid']
+
+      anime.css("title").each do |title|
+        if title['type'] == 'official' and title['lang'] == 'ja'
+          title_japanese_main = title.inner_text.strip.gsub('`', "'")
+        elsif title['type'] == 'official' and title['lang'] == 'en'
+          title_english_main = title.inner_text.strip.gsub('`', "'")
+        elsif title['type'] == 'main' and title['lang'] == 'x-jat'
+          title_romaji_main = title.inner_text.strip.gsub('`', "'")
+        end
+      end
+
+      next unless [title_japanese_main, title_english_main, title_romaji_main].detect { |t| !t.blank? }
+      
+      title = Lia::Title.create!(:english_title => title_english_main, :romaji_title => title_romaji_main,
+       :japanese_title => title_japanese_main, :licensed => false)
+      
+      anime.css("title").each do |node|
+        if (%w(official main syn).include?(node['type'].to_s) && %w(x-jat x-unk en).include?(node['lang'].to_s)) || (node['lang'] == 'en' && node['type'] == 'short')
+          all_titles << [title.id, node.inner_text.downcase.strip.gsub('`', "'")]
+        end
+      end
+
+      puts "Created #{title.title}"
+    end
+
+
+    #Add licensing data from Madman
+    Dir.glob(__DIRNAME__ / "dls/madman_*.html").each do |file|
+      doc = Nokogiri::HTML::Document.parse(File.read(file))
+      
+      doc.css("div.informationColumn > h3 > a").each do |node|
+        madman_title = node.inner_text.gsub(/\(.*?\)/, '').gsub(/\s+/, ' ').strip.downcase
+
+        next if ['he-man', 'fat albert', 'kung faux', "bro'town", 'lucky luke', 'm.a.s.k.', 'rocky & bullwinkle', 'rocky & bulwinkle',
+         'roger ramjet'].detect { |bt| madman_title.include?(bt) } #FUCK YOU MADMAN, ANIMATION != ANIME
+
+        title_id, best_title = all_titles.max_by { |(title_id, title)| title.longest_substring_similar(madman_title) }
+
+        puts "#{node.inner_text} => #{madman_title} == #{best_title}"
+        Lia::Title.find(title_id).update_attributes(:licensed => true, :licensor => "Madman")
+      end
+    end
+    
+    Lia::Title.find_by_english_title('Noein ~to your other self~').update_attributes(:licensed => true, :licensor => 'Madman')
+
+
+    #Add licensing data from Siren Visual
+    doc = Nokogiri::HTML::Document.parse(File.read(__DIRNAME__ / "dls/siren.html"))
+    
+    doc.css("div.Details > h4:first-child > a:first-child").each do |node|
+      siren_title = node.inner_text.gsub(/\(.*?\)/, '').gsub(/\s+/, ' ').strip.downcase.gsub('part 1', '').gsub('part 2', '')
+      
+      next if ['irabu', 'hentai collection', 'vandread', 'x: complete'].detect { |bt| siren_title.include?(bt) } || siren_title == 'iria'
+
+      title_id, best_title = all_titles.max_by { |(title_id, title)| title.longest_substring_similar(siren_title) }
+
+      puts "#{node.inner_text} => #{siren_title} == #{best_title}"
+      Lia::Title.find(title_id).update_attributes(:licensed => true, :licensor => "Siren Visual")
+    end
+    
+    Lia::Title.find_by_romaji_title('Kuuchuu Buranko').update_attributes(:licensed => true, :licensor => 'Siren Visual')
+    Lia::Title.find_by_romaji_title('VanDread').update_attributes(:licensed => true, :licensor => 'Siren Visual')
+    Lia::Title.find_by_romaji_title('VanDread the Second Stage').update_attributes(:licensed => true, :licensor => 'Siren Visual')
+    Lia::Title.find_by_romaji_title('X (2001)').update_attributes(:licensed => true, :licensor => 'Siren Visual')
+    Lia::Title.find_by_romaji_title('Iria: Zeiram the Animation').update_attributes(:licensed => true, :licensor => 'Siren Visual')
+    
+  end
+end

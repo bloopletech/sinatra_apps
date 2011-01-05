@@ -1,7 +1,8 @@
-require_relative '../lib/shared'
-
-namespace :db do
-  task :migrate do
-    ActiveRecord::Migrator.migrate(File.dirname(__FILE__) + "/migrations/")
+namespace :mphm do
+  namespace :db do
+    desc "Migrate database"
+    task :migrate do
+      ActiveRecord::Migrator.migrate(File.dirname(__FILE__) + "/migrations/")
+    end
   end
 end

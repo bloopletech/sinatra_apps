@@ -11,6 +11,7 @@ GEM
       arel (~> 1.0.0)
       tzinfo (~> 0.3.23)
     activesupport (3.0.0)
+    amatch (0.2.5)
     arel (1.0.1)
       activesupport (~> 3.0.0)
     builder (2.1.2)
@@ -35,6 +36,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord (= 3.0.0)
+  amatch
   errand (= 0.7.2)
   haml (= 3.0.17)
   mongrel (= 1.2.0.pre2)

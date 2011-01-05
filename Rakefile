@@ -5,6 +5,8 @@ end
 
 require_relative 'lib/shared'
 
+Dir.glob("*/Rakefile").each { |f| import f }
+
 pidfile = 'tmp/pids/server.pid'
 
 desc "Starts the server"

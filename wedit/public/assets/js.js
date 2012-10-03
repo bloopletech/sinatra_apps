@@ -110,10 +110,6 @@ $(function() {
     });
   }
 
-  function export_document() {
-    location.href = "/api.php?action=export&key=" + encodeURIComponent($("#key").val());
-  }
-
   $(document).keydown(function(e) {
     if(!(String.fromCharCode(e.which).toLowerCase() == 's' && e.ctrlKey) && !(e.which == 19)) return;
     sync();
@@ -150,6 +146,7 @@ $(function() {
        "Your document key is like a password; with this, anyone can access and edit your document.");
       return;
     }
+    $("#key-export").attr("href", "/s/document-" + encodeURIComponent(key));
     set_key_local("key", key);
     load_document_locally();
   });
@@ -161,11 +158,6 @@ $(function() {
 
   $("#sync").click(function(e) {
     sync();
-    e.preventDefault();
-  });
-
-  $("#key-export").click(function(e) {
-    export_document();
     e.preventDefault();
   });
 

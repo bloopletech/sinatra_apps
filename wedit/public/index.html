@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html manifest="/manifest.mf">
+  <head>
+    <meta charset='utf-8'>
+    <title>wedit</title>
+    <link rel="stylesheet" type="text/css" href="/assets/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="/assets/style.css">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no">
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/favicon.ico">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/jquery.bytesize.js"></script>
+    <script type="text/javascript" src="/assets/jquery.digits.js"></script>
+    <script type="text/javascript" src="/assets/js.js"></script>
+    <script type="text/javascript" src="/assets/jquery.caret.js"></script>
+    <script type="text/javascript" src="/assets/autocorrect.js"></script>
+    <script type="text/javascript" src="/assets/autocorrect.wordlist.js"></script>
+  </head>
+  <body>
+    <div id="wrapper">
+      <textarea id="editor"></textarea>
+      <div id="toolbar">
+        <span id="sync-wrapper">
+          <span id="sync-status"></span>
+          <a href="#" id="sync" title="Sync document to server"><i class="icon-refresh"></i></a>
+        </span>
+        <span id="statistics"></span>
+        <div id="key-wrapper">
+          <input type="text" id="key" title="Document ID">
+          <a href="#" id="key-new" title="Create a new document"><i class="icon-plus-sign"></i></a>
+          <a href="#" id="key-export" title="Export document to a text file"><i class="icon-download"></i></a>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </body>
+</html>

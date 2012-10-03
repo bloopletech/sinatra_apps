@@ -1,14 +1,18 @@
-module OpenHash
+module Wedit
 end
 
-class OpenHash::OpenHash < Sinatra::Base
-  get '/:key' do
-    mc.get(params[:key])
+class Wedit::Wedit < Sinatra::Base
+  get '/' do
+    redirect '/index.html'
   end
 
-  put '/:key' do
+  get '/s/:key' do
+    mc.get("wedit-" + params[:key])
+  end
+
+  put '/s/:key' do
     request.body.rewind
-    mc.set(params[:key], request.body.read)
+    mc.set("wedit-" + params[:key], request.body.read)
     200
   end
 

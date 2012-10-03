@@ -15,9 +15,9 @@ set :deploy_via, :remote_cache
 
 set :keep_releases, 2
 
-role :app, "173.230.157.72"
-role :web, "173.230.157.72"
-role :db,  "173.230.157.72", :primary => true
+role :app, "178.79.147.14"
+role :web, "178.79.147.14"
+role :db,  "178.79.147.14", :primary => true
 
 set :runner, user
 

@@ -4,4 +4,4 @@ DB_CONFIG = { :adapter => 'postgresql',
   :password => 'postgres',
   :host => 'localhost',
   :pool => 50,
-  :reconnect => true }
+  :async_query => true }

@@ -1,9 +1,0 @@
-1294184362
-Lia	/home/bloopletech/key/sinatra_apps/lia/lia.rb	class Lia::Lia 
-Lia	/home/bloopletech/key/sinatra_apps/lia/lia.rb	module Lia
-LiaAddTitles	/home/bloopletech/key/sinatra_apps/lia/migrations/100_lia_add_titles.rb	class LiaAddTitles 
-Title	/home/bloopletech/key/sinatra_apps/lia/title.rb	class Lia::Title 
-down	/home/bloopletech/key/sinatra_apps/lia/migrations/100_lia_add_titles.rb	  def self.down
-title	/home/bloopletech/key/sinatra_apps/lia/title.rb	  def title
-titles	/home/bloopletech/key/sinatra_apps/lia/title.rb	  def titles
-up	/home/bloopletech/key/sinatra_apps/lia/migrations/100_lia_add_titles.rb	  def self.up

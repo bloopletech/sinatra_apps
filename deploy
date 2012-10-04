@@ -1,0 +1,2 @@
+#!/bin/bash -l
+lnode "cd ~/www/sinatra_apps/current; git pull; sudo monit rake stop; sudo monit rake start;"

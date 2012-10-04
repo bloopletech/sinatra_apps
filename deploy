@@ -1,2 +1,9 @@
 #!/bin/bash -l
-lnode "cd ~/www/sinatra_apps/current; git pull; sudo monit rake stop; sudo monit rake start;"
+lnode "
+rvm use 1.9.2;
+cd ~/www/sinatra_apps/current;
+git pull;
+ln -nfs ~/www/sinatra_apps/shared/lib/configuration.rb ~/www/sinatra_apps/current/lib/configuration.rb;
+rake generate_nginx_config;
+sudo -S monit restart rake;
+"

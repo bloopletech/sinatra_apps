@@ -1,7 +1,7 @@
 source "http://rubygems.org"
 
 gem 'mongrel', '1.2.0.pre2'
-#gem 'pg', '0.9.0'
+gem 'pg', '0.9.0'
 gem 'mysql2'
 gem 'sinatra',  :require => 'sinatra/base'
 gem 'activerecord', '3.0.0', :require => 'active_record'

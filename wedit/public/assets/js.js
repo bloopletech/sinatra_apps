@@ -70,6 +70,7 @@ $(function() {
   function load_document_online() {
     var text = get_key_local(document_id()) || "";
 
+    $("#sync-status").html("Syncing... <i class='icon-time'></i>");
     get_key_remote(document_id() + "-last-modified", function(text) {
       var llm = parseFloat(get_key_local(document_id() + "-last-modified")); 
       if(isNaN(llm) || (llm > parseFloat(text))) {

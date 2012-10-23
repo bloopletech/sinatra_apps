@@ -137,7 +137,7 @@ $(function() {
   statistics();
 
   $(window).resize(function() {
-    $("#editor").css("height", $(window).height() - 28);
+    $("#editor").css("height", $(window).height() - 20);
   }).resize();
 
   $("#key").change(function() {

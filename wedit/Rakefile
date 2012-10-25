@@ -1,0 +1,10 @@
+namespace :wedit do
+  namespace :db do
+    desc "Backup database"
+    task :backup do
+      Time.zone = "Canberra"
+      system("cp /var/lib/memcachedb/default.db '/backups/wedit-#{Time.zone.now.strftime("%d-%m-%Y_%H_%M_%S")}.sql'")    
+      system("s3cmd sync /backups s3://bloople_backups")
+    end
+  end
+end

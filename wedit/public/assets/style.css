@@ -3,7 +3,7 @@
 * { margin: 0; padding: 0; font: 16px/22px Inconsolata, monospace; }
 body { background-image: url("/assets/skewed_print.png"); }
 .clear { clear: both; }
-#wrapper { max-width: 1000px; margin: 0 auto; padding: 0 7px; background-color: #ffffff; }
+#wrapper { max-width: 1000px; margin: 0 auto; padding: 0 4px; background-color: #ffffff; }
 textarea { display: block; width: 100%; border: 0; padding: 0; resize: none; }
 textarea:focus { outline: none; }
 #toolbar { height: 20px; color: #808080; position: relative; }

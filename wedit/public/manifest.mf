@@ -1,8 +1,9 @@
 CACHE MANIFEST
-# 73
+# 74
 /index.html
 /assets/skewed_print.png
 /assets/Inconsolata.otf
+/assets/Inconsolata.svg
 /assets/fontawesome-webfont.ttf
 /assets/font-awesome.css
 /assets/style.css

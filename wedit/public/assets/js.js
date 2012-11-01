@@ -102,8 +102,8 @@ $(function() {
     if(text == document_last_text) return;
 
     $("#sync-status").html("Syncing... <i class='icon-time'></i>");
-    set_key_remote(document_id(), text, function(text) {
-      set_key_remote(document_id() + "-last-modified", get_key_local(document_id() + "-last-modified"), function(text) {
+    set_key_remote(document_id(), text, function() {
+      set_key_remote(document_id() + "-last-modified", get_key_local(document_id() + "-last-modified"), function() {
         $("#sync-status").html("Saved <i class='icon-ok-sign'></i>");
         document_last_text = text;
         currently_saving = false;

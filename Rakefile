@@ -24,6 +24,7 @@ task :start do
 
   Sites.all.each do |site|
     rb = Rack::Builder.app do
+      use Rack::Throttle::Hourly, :max => 300
       run site[:class]
     end
   

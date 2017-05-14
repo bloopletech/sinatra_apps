@@ -98,7 +98,7 @@ class GitFight::GitFight < Sinatra::Base
   end
 
   def get_user(username)
-    user = GitFight::User.find(:first, :conditions => ['LOWER(username) = ?', username])
+    user = GitFight::User.find(:first, :conditions => ['username = ?', username])
     user = GitFight::User.create(:username => username) unless user
     user
   end
